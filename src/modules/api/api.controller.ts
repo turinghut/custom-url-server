@@ -4,7 +4,7 @@ import { environment } from '../../environment';
 @Controller({ host: environment.API_HOST })
 export class ApiController {
   @Get()
-  fn() {
+  fn(): string {
     return 'api home route';
   }
 }
