@@ -14,7 +14,7 @@ export class Link extends Document {
   createdAt: Date;
 
   @Prop()
-  status: LinkStatus;
+  status: string;
 
   @Prop()
   customUrl: string;
