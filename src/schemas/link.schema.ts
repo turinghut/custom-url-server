@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { LinkStatus } from 'src/models/link.model';
 
-@Schema()
+@Schema({ versionKey: 'false'})
 export class Link extends Document {
   @Prop()
   name: string;
@@ -19,7 +19,7 @@ export class Link extends Document {
   @Prop()
   customUrl: string;
 
-  @Prop()
+  @Prop({required:true})
   redirectsTo: string;
 
   @Prop()
