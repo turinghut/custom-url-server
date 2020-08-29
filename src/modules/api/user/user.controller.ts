@@ -1,19 +1,22 @@
-import { Controller, Get, Param, Post, Body } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { UserService } from './user.service';
-import { User } from 'src/schemas/user.schema';
 
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Get()
-  getAllUsers() {
-    return this.userService.getAllUsers();
-  }
-
   @Get(':id')
-  getUserData(@Param() params) {
-    const user = this.userService.getUserData(params.id);
-    return user;
+  async getUserData(@Param() params) {
+    const user = await this.userService.getUserById(params.id);
+    if (user) {
+      return {
+        status: 'OK',
+        result: JSON.stringify(user),
+      };
+    }
+    return {
+      status: 'NOT OK',
+      message: 'User Not Found',
+    };
   }
 }
