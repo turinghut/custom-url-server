@@ -8,7 +8,8 @@ import { async } from 'rxjs';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async getUserById(id) {
-    return await this.userModel.findById(id);
+  async createUser(user: User): Promise<User> {
+    const newUser = new this.userModel(user);
+    return newUser.save();
   }
 }
