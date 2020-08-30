@@ -5,7 +5,7 @@ import { LinkService } from './link.service';
 export class LinkController {
   constructor(private readonly linkService: LinkService) {}
   @Get()
-  async getAllLinksForUserId(@Param('userId') userId:string) {
+  async getAllLinksForUserId(@Param('userId') userId: string) {
     const links = await this.linkService.getAllLinksForUser(userId);
     if (links.length) {
       return {
