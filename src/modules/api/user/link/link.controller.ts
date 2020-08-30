@@ -1,5 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { LinkService } from './link.service';
+import { IResult } from 'src/common/interfaces/response';
 
 @Controller('users/:userId/links')
 export class LinkController {
@@ -7,15 +8,15 @@ export class LinkController {
   @Get()
   async getAllLinksForUserId(@Param('userId') userId: string) {
     const links = await this.linkService.getAllLinksForUser(userId);
-    if (links.length) {
-      return {
-        status: 'OK',
-        result: JSON.stringify(links),
-      };
+    const response = {} as IResult;
+    if (links?.length) {
+      response.status = 'OK';
+      response.result = links;
+    } else {
+      response.status = 'NOT OK';
+      response.error = 'No Links Available';
+      response.result = links;
     }
-    return {
-      status: 'NOT OK',
-      result: 'No Links Available',
-    };
+    return response;
   }
 }
