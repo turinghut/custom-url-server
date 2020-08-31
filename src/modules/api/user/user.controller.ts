@@ -18,9 +18,10 @@ export class UserController {
       };
       return resp;
     }
-    const errResp = {
+    const errResp: IResult<unknown> = {
       status: 'NOT OK',
       error: 'User not created',
+      result: null,
     };
     return errResp;
   }
