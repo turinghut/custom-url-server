@@ -1,6 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from 'src/schemas/user.schema';
+import { IResult } from 'src/common/interfaces/response';
 
 @Controller('users')
 export class UserController {
@@ -11,14 +12,16 @@ export class UserController {
     user.joinedAt = new Date();
     const newUser = await this.userService.createUser(user);
     if (newUser) {
-      return {
+      const resp: IResult<unknown> = {
         status: 'OK',
         result: newUser,
       };
+      return resp;
     }
-    return {
+    const errResp = {
       status: 'NOT OK',
-      message: 'User not created',
+      error: 'User not created',
     };
+    return errResp;
   }
 }
