@@ -1,5 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { UserService } from './user.service';
+import { IResult } from 'src/common/interfaces/response';
 
 @Controller('users')
 export class UserController {
@@ -9,14 +10,17 @@ export class UserController {
   async getUserById(@Param() params) {
     const user = await this.userService.getUserById(params.id);
     if (user) {
-      return {
+      const resp: IResult<unknown> = {
         status: 'OK',
         result: JSON.stringify(user),
       };
+      return resp;
     }
-    return {
+    const errResp: IResult<unknown> = {
       status: 'NOT OK',
-      message: 'User Not Found',
+      error: 'User Not Found',
+      result: null,
     };
+    return errResp;
   }
 }
