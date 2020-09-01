@@ -6,7 +6,7 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class LinkService {
-  constructor(@InjectModel(Link.name) private linkModel: Model<Link>) { }
+  constructor(@InjectModel(Link.name) private linkModel: Model<Link>) {}
 
   async create(
     name: any,
@@ -25,9 +25,8 @@ export class LinkService {
       inPool: inPool,
       createdAt: Date.now(),
     });
-    
+
     const result = await newLink.save();
     return result as LinkDTO;
-    
   }
 }
