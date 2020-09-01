@@ -13,7 +13,7 @@ export class UserController {
       if (user) {
         const resp: IResult<unknown> = {
           status: 'OK',
-          result: JSON.stringify(user),
+          result: user,
         };
         return resp;
       }
