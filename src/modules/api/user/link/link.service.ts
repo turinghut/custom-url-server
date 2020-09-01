@@ -7,14 +7,21 @@ import { Model } from 'mongoose';
 @Injectable()
 export class LinkService {
   constructor(@InjectModel(Link.name) private linkModel: Model<Link>) {}
-    
-  async create(name,status,customUrl ,redirectsTo,inPool ,userId): Promise<LinkDTO> {
+
+  async create(
+    name,
+    status,
+    customUrl,
+    redirectsTo,
+    inPool,
+    userId,
+  ): Promise<LinkDTO> {
     const newLink = new this.linkModel({
       userId: userId,
       name: name,
       customUrl: customUrl,
       redirectsTo: redirectsTo,
-      status:status,
+      status: status,
       inPool: inPool,
       createdAt: Date.now(),
     });
@@ -23,4 +30,3 @@ export class LinkService {
     return result as LinkDTO;
   }
 }
-

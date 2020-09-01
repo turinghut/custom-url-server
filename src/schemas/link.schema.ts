@@ -7,13 +7,13 @@ export class Link extends Document {
   @Prop()
   name: string;
 
-  @Prop({require:true})
+  @Prop({ require: true })
   userId: string;
 
-  @Prop({required:true})
+  @Prop({ required: true })
   createdAt: Date;
 
-  @Prop({required:true})
+  @Prop({ required: true })
   status: LinkStatus;
 
   @Prop()
