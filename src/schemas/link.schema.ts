@@ -2,24 +2,24 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { LinkStatus } from 'src/models/link.model';
 
-@Schema({ versionKey: 'false'})
+@Schema({ versionKey: 'false' })
 export class Link extends Document {
   @Prop()
   name: string;
 
-  @Prop()
+  @Prop({require:true})
   userId: string;
 
-  @Prop()
+  @Prop({required:true})
   createdAt: Date;
 
-  @Prop()
-  status: string;
+  @Prop({required:true})
+  status: LinkStatus;
 
   @Prop()
   customUrl: string;
 
-  @Prop({required:true})
+  @Prop({ required: true })
   redirectsTo: string;
 
   @Prop()
