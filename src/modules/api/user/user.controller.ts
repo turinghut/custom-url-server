@@ -8,19 +8,28 @@ export class UserController {
 
   @Get(':id')
   async getUserById(@Param() params) {
-    const user = await this.userService.getUserById(params.id);
-    if (user) {
-      const resp: IResult<unknown> = {
-        status: 'OK',
-        result: JSON.stringify(user),
+    try {
+      const user = await this.userService.getUserById(params.id);
+      if (user) {
+        const resp: IResult<unknown> = {
+          status: 'OK',
+          result: JSON.stringify(user),
+        };
+        return resp;
+      }
+      const errResp: IResult<unknown> = {
+        status: 'NOT OK',
+        error: 'User not found',
+        result: null,
       };
-      return resp;
+      return errResp;
+    } catch (err) {
+      const errResp: IResult<unknown> = {
+        status: 'NOT OK',
+        error: 'An error occured',
+        result: null,
+      };
+      return errResp;
     }
-    const errResp: IResult<unknown> = {
-      status: 'NOT OK',
-      error: 'User Not Found',
-      result: null,
-    };
-    return errResp;
   }
 }
