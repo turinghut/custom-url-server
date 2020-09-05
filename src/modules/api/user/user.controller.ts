@@ -7,9 +7,9 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Get(':id')
-  async getUserById(@Param() params) {
+  async getUserById(@Param('id') id) {
     try {
-      const user = await this.userService.getUserById(params.id);
+      const user = await this.userService.getUserById(id);
       if (user) {
         const resp: IResult<unknown> = {
           status: 'OK',
