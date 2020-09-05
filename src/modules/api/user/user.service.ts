@@ -7,7 +7,7 @@ import { Model } from 'mongoose';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async getUserById(id: String) {
+  async getUserById(id: string) {
     return await this.userModel.findById(id);
   }
 }

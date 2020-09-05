@@ -1,9 +1,7 @@
-export interface IUser {
+export interface UserDTO {
   _id: string;
   name: string;
   joinedAt: Date;
   emailAddress: string;
-  password: string;
   phoneNumber: string;
 }
-
