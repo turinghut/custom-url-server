@@ -10,12 +10,12 @@ export class LinkService {
   constructor(@InjectModel(Link.name) private linkModel: Model<Link>) {}
 
   async create(
-    name: String,
-    status:LinkStatus ,
-    customUrl: String,
-    redirectsTo: String,
-    inPool: Boolean,
-    userId:String ,
+    name: string,
+    status: LinkStatus,
+    customUrl: string,
+    redirectsTo: string,
+    inPool: boolean,
+    userId: string,
   ): Promise<LinkDTO> {
     const newLink = new this.linkModel({
       userId: userId,
