@@ -6,7 +6,8 @@ import { Model } from 'mongoose';
 @Injectable()
 export class LinkService {
   constructor(@InjectModel(Link.name) private linkModel: Model<Link>) {}
-  async getAllLinksForUser(userId) {
-    return await this.linkModel.find({userId});
+  async getAllLinksOfUser(userId) {
+    return await this.linkModel.find({ userId });
   }
 }
+

@@ -7,15 +7,15 @@ export class LinkController {
   constructor(private readonly linkService: LinkService) {}
   @Get()
   async getAllLinksForUserId(@Param('userId') userId: string) {
-    const links = await this.linkService.getAllLinksForUser(userId);
+    const links = await this.linkService.getAllLinksOfUser(userId);
     const response = {} as IResult;
-    if (links?.length) {
+    if (links) {
       response.status = 'OK';
       response.result = links;
     } else {
       response.status = 'NOT OK';
-      response.error = 'No Links Available';
-      response.result = links;
+      response.error = 'Unable to get links';
+      response.result = null;
     }
     return response;
   }
