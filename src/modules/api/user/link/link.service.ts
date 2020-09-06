@@ -10,4 +10,3 @@ export class LinkService {
     return await this.linkModel.find({ userId });
   }
 }
-
