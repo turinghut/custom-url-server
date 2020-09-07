@@ -6,4 +6,3 @@ export interface IUser {
   password: string;
   phoneNumber: string;
 }
-

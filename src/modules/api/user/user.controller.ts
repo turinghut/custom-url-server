@@ -5,7 +5,7 @@ import { UserDTO } from './user.dto';
 
 @Controller('users')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
   @Get(':id')
   async getUserById(@Param('id') id) {
@@ -20,7 +20,7 @@ export class UserController {
       if (user) {
         const userResp: UserDTO = {
           name: user.name,
-          _id: user.id,
+          _id: user._id,
           emailAddress: user.emailAddress,
           joinedAt: user.joinedAt,
           phoneNumber: user.phoneNumber,
