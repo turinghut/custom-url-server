@@ -22,7 +22,7 @@ export class Link extends Document {
   @Prop({ required: true })
   redirectsTo: string;
 
-  @Prop()
+  @Prop({ required: true })
   inPool: boolean;
 }
 

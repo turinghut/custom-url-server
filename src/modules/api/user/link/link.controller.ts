@@ -11,19 +11,11 @@ export class LinkController {
     @Body() linkDTO: LinkDTO,
     @Param('userId') userId,
   ): Promise<IResult<LinkDTO>> {
-    const { name, status, customUrl, redirectsTo, inPool = false } = linkDTO;
     try {
-      const result = await this.linkService.create(
-        name,
-        status,
-        customUrl,
-        redirectsTo,
-        inPool,
-        userId,
-      );
+      const result = await this.linkService.create(linkDTO,userId);
       return { status: 'OK', result: result };
     } catch (error) {
-      return { status: 'NOT OK', error: error.message, result: null };
+      return { status: 'NOT OK', error: error.message};
     }
   }
 }

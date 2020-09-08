@@ -1,22 +1,19 @@
+import { Link } from './../../../../schemas/link.schema';
 import { LinkDTO } from './link.dto';
 import { Injectable } from '@nestjs/common';
-import { Link } from 'src/schemas/link.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { LinkStatus } from 'src/models/link.model';
 
 @Injectable()
 export class LinkService {
   constructor(@InjectModel(Link.name) private linkModel: Model<Link>) {}
 
   async create(
-    name: string,
-    status: LinkStatus,
-    customUrl: string,
-    redirectsTo: string,
-    inPool: boolean,
+    linkDTO:LinkDTO,
     userId: string,
   ): Promise<LinkDTO> {
+    const { name, status, customUrl, redirectsTo, inPool = false } = linkDTO;
+
     const newLink = new this.linkModel({
       userId: userId,
       name: name,
