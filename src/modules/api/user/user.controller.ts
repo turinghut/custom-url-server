@@ -9,12 +9,6 @@ export class UserController {
 
   @Get(':id')
   async getUserById(@Param('id') id) {
-    const errResp: IResult<UserDTO> = {
-      status: 'NOT OK',
-      error: '',
-      result: null,
-    };
-
     try {
       const user = await this.userService.getUserById(id);
       if (user) {
@@ -31,10 +25,18 @@ export class UserController {
         };
         return resp;
       }
-      errResp.error = 'User not found';
+      const errResp: IResult<UserDTO> = {
+        status: 'NOT OK',
+        error: 'User not found',
+        result: null,
+      };
       return errResp;
     } catch (err) {
-      errResp.error = 'An error occured';
+      const errResp: IResult<UserDTO> = {
+        status: 'NOT OK',
+        error: 'An error occurred',
+        result: null,
+      };
       return errResp;
     }
   }
