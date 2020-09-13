@@ -9,13 +9,13 @@ export class LinkController {
   @Post()
   async create(
     @Body() linkDTO: LinkDTO,
-    @Param('userId') userId,
+    @Param('userId') userId :string,
   ): Promise<IResult<LinkDTO>> {
     try {
-      const result = await this.linkService.create(linkDTO,userId);
+      const result = await this.linkService.create(linkDTO, userId);
       return { status: 'OK', result: result };
     } catch (error) {
-      return { status: 'NOT OK', error: error.message};
+      return { status: 'NOT OK', error: error.message };
     }
   }
 }

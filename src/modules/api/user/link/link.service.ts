@@ -8,10 +8,7 @@ import { Model } from 'mongoose';
 export class LinkService {
   constructor(@InjectModel(Link.name) private linkModel: Model<Link>) {}
 
-  async create(
-    linkDTO:LinkDTO,
-    userId: string,
-  ): Promise<LinkDTO> {
+  async create(linkDTO: LinkDTO, userId: string): Promise<LinkDTO> {
     const { name, status, customUrl, redirectsTo, inPool = false } = linkDTO;
 
     const newLink = new this.linkModel({
