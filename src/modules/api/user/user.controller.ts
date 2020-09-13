@@ -8,7 +8,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get(':id')
-  async getUserById(@Param('id') id) {
+  async getUserById(@Param('id') id: string) {
     try {
       const user = await this.userService.getUserById(id);
       if (user) {
@@ -19,25 +19,20 @@ export class UserController {
           joinedAt: user.joinedAt,
           phoneNumber: user.phoneNumber,
         };
-        const resp: IResult<UserDTO> = {
+        return {
           status: 'OK',
           result: userResp,
-        };
-        return resp;
+        } as IResult<UserDTO>;
       }
-      const errResp: IResult<UserDTO> = {
+      return {
         status: 'NOT OK',
         error: 'User not found',
-        result: null,
-      };
-      return errResp;
+      } as IResult<UserDTO>;
     } catch (err) {
-      const errResp: IResult<UserDTO> = {
+      return {
         status: 'NOT OK',
         error: 'An error occurred',
-        result: null,
-      };
-      return errResp;
+      } as IResult<UserDTO>;
     }
   }
 }
