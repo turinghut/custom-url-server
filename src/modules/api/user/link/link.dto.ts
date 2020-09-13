@@ -3,19 +3,19 @@ import { IsNotEmpty, IsString, IsBoolean, IsIn } from 'class-validator';
 export class LinkDTO {
   @IsNotEmpty()
   @IsString()
-  redirectsTo :string;
+  redirectsTo: string;
 
   @IsIn([0, 1, 2])
   @IsNotEmpty()
-  status : number;
+  status: number;
 
   @IsString()
-  name :string;
+  name: string;
 
   @IsBoolean()
   @IsNotEmpty()
-  inPool :boolean;
+  inPool: boolean;
 
   @IsString()
-  customUrl:string;
+  customUrl: string;
 }

@@ -9,7 +9,7 @@ export class LinkController {
   @Post()
   async create(
     @Body() linkDTO: LinkDTO,
-    @Param('userId') userId :string,
+    @Param('userId') userId: string,
   ): Promise<IResult<LinkDTO>> {
     try {
       const result = await this.linkService.create(linkDTO, userId);
