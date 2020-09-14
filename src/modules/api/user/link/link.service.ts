@@ -7,7 +7,9 @@ import { Model } from 'mongoose';
 @Injectable()
 export class LinkService {
   constructor(@InjectModel(Link.name) private linkModel: Model<Link>) {}
-
+  async getAllLinksOfUser(userId: string) {
+    return await this.linkModel.find({ userId });
+  }
   async create(linkDTO: LinkDTO, userId: string): Promise<LinkDTO> {
     const { name, status, customUrl, redirectsTo, inPool = false } = linkDTO;
 
@@ -20,7 +22,6 @@ export class LinkService {
       inPool: inPool,
       createdAt: Date.now(),
     });
-
     const result = await newLink.save();
     return result as LinkDTO;
   }
