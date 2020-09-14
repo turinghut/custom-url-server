@@ -13,8 +13,7 @@ export class LinkController {
     try {
       const links = await this.linkService.getAllLinksOfUser(userId);
       if (links) {
-        const linkArray = [];
-        links.forEach(link => {
+        const linkArray = links.map(link => {
           const resp: LinkDTO = {
             name: link.name,
             customUrl: link.customUrl,
@@ -22,7 +21,7 @@ export class LinkController {
             status: link.status,
             inPool: link.inPool,
           };
-          linkArray.push(resp);
+          return resp;
         });
         return {
           status: 'OK',
