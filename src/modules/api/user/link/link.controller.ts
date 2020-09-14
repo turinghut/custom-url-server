@@ -13,15 +13,16 @@ export class LinkController {
     try {
       const links = await this.linkService.getAllLinksOfUser(userId);
       if (links) {
-        const linkArray = links.map(link => {
-          return {
-            name: link.name,
-            customUrl: link.customUrl,
-            redirectsTo: link.redirectsTo,
-            status: link.status,
-            inPool: link.inPool
-          } as LinkDTO;
-        });
+        const linkArray = links.map(
+          link =>
+            ({
+              name: link.name,
+              customUrl: link.customUrl,
+              redirectsTo: link.redirectsTo,
+              status: link.status,
+              inPool: link.inPool,
+            } as LinkDTO),
+        );
         return {
           status: 'OK',
           result: linkArray,
