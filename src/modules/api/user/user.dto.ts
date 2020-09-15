@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsDate } from 'class-validator';
 export class UserDTO {
   @IsNotEmpty()
   @IsString()
@@ -7,7 +7,7 @@ export class UserDTO {
   @IsString()
   name: string;
 
-  @IsString()
+  @IsDate()
   joinedAt: Date;
 
   @IsString()

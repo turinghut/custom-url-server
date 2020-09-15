@@ -8,7 +8,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get(':id')
-  async getUserById(@Param('id') id: string) {
+  async getUserById(@Param('id') id: string): Promise<IResult<UserDTO>> {
     try {
       const user = await this.userService.getUserById(id);
       if (user) {
