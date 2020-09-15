@@ -1,6 +1,10 @@
 import { IsNotEmpty, IsString, IsBoolean, IsIn } from 'class-validator';
 
 export class LinkDTO {
+  @IsString()
+  @IsNotEmpty()
+  _id: string;
+
   @IsNotEmpty()
   @IsString()
   redirectsTo: string;
@@ -17,5 +21,6 @@ export class LinkDTO {
   inPool: boolean;
 
   @IsString()
+  @IsNotEmpty()
   customUrl: string;
 }
