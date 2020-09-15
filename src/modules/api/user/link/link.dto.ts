@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsString, IsBoolean, IsIn } from 'class-validator';
+import { ILink } from 'src/models/link.model';
 
 export class LinkDTO {
   @IsString()
@@ -23,4 +24,13 @@ export class LinkDTO {
   @IsString()
   @IsNotEmpty()
   customUrl: string;
+
+  constructor(link: ILink) {
+    this._id = link._id;
+    this.name = link.name;
+    this.status = link.status;
+    this.redirectsTo = link.redirectsTo;
+    this.customUrl = link.customUrl;
+    this.inPool = link.inPool;
+  }
 }
