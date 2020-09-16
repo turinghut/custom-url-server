@@ -9,24 +9,24 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  async createUser(@Body() user: User) {
-    user.joinedAt = new Date();
-    const newUser = await this.userService.createUser(user);
-    if (newUser) {
-      const resp: IResult<unknown> = {
-        status: 'OK',
-        result: newUser,
-      };
-      return resp;
+  async createUser(@Body() user: User): Promise<IResult<UserDTO>> {
+    try {
+      user.joinedAt = new Date();
+      const newUser = await this.userService.createUser(user);
+      if (newUser) {
+        return {
+          status: 'OK',
+          result: newUser,
+        } as IResult<UserDTO>;
+      }
+    } catch (error) {
+      return {
+        status: 'NOT OK',
+        error: error.message,
+      } as IResult<UserDTO>;
     }
-    const errResp: IResult<unknown> = {
-      status: 'NOT OK',
-      error: 'User not created',
-      result: null,
-    };
-    return errResp;
   }
-  
+
   @Get(':id')
   async getUserById(@Param('id') id: string): Promise<IResult<UserDTO>> {
     try {
