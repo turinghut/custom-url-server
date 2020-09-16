@@ -12,16 +12,9 @@ export class UserController {
     try {
       const user = await this.userService.getUserById(id);
       if (user) {
-        const userResp: UserDTO = {
-          name: user.name,
-          _id: user._id,
-          emailAddress: user.emailAddress,
-          joinedAt: user.joinedAt,
-          phoneNumber: user.phoneNumber,
-        };
         return {
           status: 'OK',
-          result: userResp,
+          result: user,
         } as IResult<UserDTO>;
       }
       return {
