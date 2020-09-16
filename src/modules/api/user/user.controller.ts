@@ -38,7 +38,13 @@ export class UserController {
       if (user) {
         return {
           status: 'OK',
-          result: user,
+          result: {
+            _id: user._id,
+            emailAddress: user.emailAddress,
+            phoneNumber: user.phoneNumber,
+            name: user.name,
+            joinedAt: user.joinedAt,
+          } as UserDTO,
         } as IResult<UserDTO>;
       }
       return {
