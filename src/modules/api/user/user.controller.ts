@@ -1,7 +1,6 @@
 import { Body, Controller, Param, Put } from '@nestjs/common';
+
 import { IResult } from 'src/common/interfaces/response';
-import { IUser } from 'src/models/user.model';
-import { User } from 'src/schemas/user.schema';
 import { UserDTO } from './user.dto';
 import { UserService } from './user.service';
 
