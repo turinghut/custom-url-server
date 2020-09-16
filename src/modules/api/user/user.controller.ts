@@ -1,4 +1,5 @@
 import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+
 import { UserService } from './user.service';
 import { IResult } from 'src/common/interfaces/response';
 import { UserDTO } from './user.dto';
@@ -16,7 +17,13 @@ export class UserController {
       if (newUser) {
         return {
           status: 'OK',
-          result: newUser,
+          result: {
+            _id: newUser._id,
+            emailAddress: newUser.emailAddress,
+            phoneNumber: newUser.phoneNumber,
+            name: newUser.name,
+            joinedAt: newUser.joinedAt,
+          } as UserDTO,
         } as IResult<UserDTO>;
       }
       return {
