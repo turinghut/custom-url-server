@@ -14,9 +14,4 @@ export class UserService {
     newUser = await newUser.save();
     return newUser as IUser;
   }
-
-  async getUserById(id: string): Promise<IUser> {
-    const user = await this.userModel.findById(id);
-    return user as IUser;
-  }
 }
