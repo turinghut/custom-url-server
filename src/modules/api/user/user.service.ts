@@ -13,4 +13,9 @@ export class UserService {
     const updatedUser = await this.userModel.findByIdAndUpdate(userId, user);
     return updatedUser as IUser;
   }
+
+  async getUserById(id: string): Promise<IUser> {
+    const user = await this.userModel.findById(id);
+    return user as IUser;
+  }
 }
