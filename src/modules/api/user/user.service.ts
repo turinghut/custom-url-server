@@ -9,7 +9,7 @@ import { IUser } from 'src/models/user.model';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async createUser(user: User): Promise<IUser> {
+  async createUser(user: IUser): Promise<IUser> {
     let newUser = new this.userModel(user);
     newUser = await newUser.save();
     return newUser as IUser;

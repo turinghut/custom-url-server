@@ -3,7 +3,7 @@ import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { IResult } from 'src/common/interfaces/response';
 import { UserDTO } from './user.dto';
-import { User } from 'src/schemas/user.schema';
+import { IUser } from 'src/models/user.model';
 
 @Controller('users')
 export class UserController {
@@ -38,7 +38,7 @@ export class UserController {
   }
 
   @Post()
-  async createUser(@Body() user: User): Promise<IResult<UserDTO>> {
+  async createUser(@Body() user: IUser): Promise<IResult<UserDTO>> {
     try {
       user.joinedAt = new Date();
       const newUser = await this.userService.createUser(user);
