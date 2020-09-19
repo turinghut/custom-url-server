@@ -38,7 +38,7 @@ export class LinkService {
     return result as ILink;
   }
 
-  async editUserLink(linkId: string, linkData: ILink): Promise<ILink> {
+  async editLink(linkId: string, linkData: ILink): Promise<ILink> {
     return (await this.linkModel.findByIdAndUpdate(linkId, linkData)) as ILink;
   }
 }

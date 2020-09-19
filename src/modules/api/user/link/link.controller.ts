@@ -61,15 +61,15 @@ export class LinkController {
   }
   @Put(':id')
   async editLink(
-    @Param('userId') userId: string,
     @Param('id') linkId: string,
     @Body() linkData: ILink,
   ): Promise<IResult<LinkDTO>> {
     try {
-      const result = await this.linkService.editUserLink(linkId, linkData);
+      const result = await this.linkService.editLink(linkId, linkData);
       const updatedLink = new LinkDTO(result);
       return {
         status: 'OK',
+        result: updatedLink,
       } as IResult<LinkDTO>;
     } catch (err) {
       return {
