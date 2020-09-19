@@ -2,6 +2,7 @@ import { Controller, Get, Param, Put, Body } from '@nestjs/common';
 import { UserService } from './user.service';
 import { IResult } from 'src/common/interfaces/response';
 import { UserDTO } from './user.dto';
+import { IUser } from 'src/models/user.model';
 
 @Controller('users')
 export class UserController {
@@ -10,10 +11,10 @@ export class UserController {
   @Put(':id')
   async updateUser(
     @Param('id') userId: string,
-    @Body() userDTO: UserDTO,
+    @Body() user: IUser,
   ): Promise<IResult<UserDTO>> {
     try {
-      const updatedUser = await this.userService.update(userId, userDTO);
+      const updatedUser = await this.userService.update(userId, user);
       if (updatedUser) {
         return {
           status: 'OK',
