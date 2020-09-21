@@ -1,13 +1,20 @@
 import { LinkService } from './link.service';
 import { IResult } from './../../../../common/interfaces/response';
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+} from '@nestjs/common';
 import { LinkDTO } from './link.dto';
 import { ILink } from 'src/models/link.model';
 
 @Controller('users/:userId/links')
 export class LinkController {
   constructor(private readonly linkService: LinkService) {}
-
   @Get()
   async getAllLinksForUserId(
     @Param('userId') userId: string,
@@ -28,7 +35,6 @@ export class LinkController {
       } as IResult<LinkDTO>;
     }
   }
-
   @Post()
   async create(
     @Body() linkData: ILink,
@@ -51,6 +57,26 @@ export class LinkController {
       return { status: 'OK', result: deletedLink };
     } catch (error) {
       return { status: 'NOT OK', error: error.message };
+    }
+  }
+  @Put(':id')
+  async editLink(
+    @Param('userId') userId: string,
+    @Param('id') linkId: string,
+    @Body() linkData: ILink,
+  ): Promise<IResult<LinkDTO>> {
+    try {
+      const result = await this.linkService.editLink(linkId, linkData);
+      const updatedLink = new LinkDTO(result);
+      return {
+        status: 'OK',
+        result:updatedLink
+      } as IResult<LinkDTO>;
+    } catch (err) {
+      return {
+        status: 'NOT OK',
+        error: err.message,
+      } as IResult<LinkDTO>;
     }
   }
 }

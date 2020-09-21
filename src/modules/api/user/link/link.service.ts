@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ILink, LinkStatus } from 'src/models/link.model';
+import { LinkDTO } from './link.dto';
 
 @Injectable()
 export class LinkService {
@@ -35,5 +36,9 @@ export class LinkService {
     link.status = LinkStatus.deleted;
     const result = await link.save();
     return result as ILink;
+  }
+
+  async editLink(linkId: string, linkData: ILink): Promise<ILink> {
+    return (await this.linkModel.findByIdAndUpdate(linkId, linkData,{new:true})) as ILink;
   }
 }
