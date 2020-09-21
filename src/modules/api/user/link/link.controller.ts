@@ -66,10 +66,11 @@ export class LinkController {
     @Body() linkData: ILink,
   ): Promise<IResult<LinkDTO>> {
     try {
-      const result = await this.linkService.editUserLink(linkId, linkData);
+      const result = await this.linkService.editLink(linkId, linkData);
       const updatedLink = new LinkDTO(result);
       return {
         status: 'OK',
+        result:updatedLink
       } as IResult<LinkDTO>;
     } catch (err) {
       return {
