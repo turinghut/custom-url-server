@@ -36,4 +36,8 @@ export class LinkService {
     const result = await link.save();
     return result as ILink;
   }
+
+  async get(linkId: string): Promise<ILink> {
+    return await this.linkModel.findById(linkId);
+  }
 }

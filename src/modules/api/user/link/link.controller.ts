@@ -53,4 +53,15 @@ export class LinkController {
       return { status: 'NOT OK', error: error.message };
     }
   }
+
+  @Get(':id')
+  async getLink(@Param('id') linkId: string): Promise<IResult<LinkDTO>> {
+    try {
+      const result = await this.linkService.get(linkId);
+      const link = new LinkDTO(result);
+      return { status: 'OK', result: link } as IResult<LinkDTO>;
+    } catch (error) {
+      return { status: 'NOT OK', error: error.message } as IResult<LinkDTO>;
+    }
+  }
 }
