@@ -54,10 +54,7 @@ export class UserController {
           } as UserDTO,
         } as IResult<UserDTO>;
       }
-      return {
-        status: 'NOT OK',
-        error: 'An error occured',
-      } as IResult<UserDTO>;
+      throw 'An error occured';
     } catch (error) {
       return {
         status: 'NOT OK',
