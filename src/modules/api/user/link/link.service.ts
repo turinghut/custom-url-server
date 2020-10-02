@@ -40,4 +40,12 @@ export class LinkService {
   async get(linkId: string): Promise<ILink> {
     return await this.linkModel.findById(linkId);
   }
+
+  async getPoolLinksOfUser(userId: string): Promise<ILink[]> {
+    return await this.linkModel.find({
+      userId,
+      $or: [{ status: LinkStatus.active }, { status: LinkStatus.inactive }],
+      inPool: true,
+    });
+  }
 }

@@ -64,4 +64,17 @@ export class LinkController {
       return { status: 'NOT OK', error: error.message } as IResult<LinkDTO>;
     }
   }
+
+  @Get('pool')
+  async getPoolLinks(
+    @Param('userId') userId: string,
+  ): Promise<IResult<LinkDTO>> {
+    try {
+      const links = await this.linkService.getPoolLinksOfUser(userId);
+      const linkDTOs = links.map(link => new LinkDTO(link));
+      return { status: 'OK', result: linkDTOs };
+    } catch (error) {
+      return { status: 'NOT OK', error: error.message };
+    }
+  }
 }
