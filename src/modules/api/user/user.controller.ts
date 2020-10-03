@@ -1,7 +1,9 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+
 import { UserService } from './user.service';
 import { IResult } from 'src/common/interfaces/response';
 import { UserDTO } from './user.dto';
+import { IUser } from 'src/models/user.model';
 
 @Controller('users')
 export class UserController {
@@ -31,6 +33,32 @@ export class UserController {
       return {
         status: 'NOT OK',
         error: err.message,
+      } as IResult<UserDTO>;
+    }
+  }
+
+  @Post()
+  async createUser(@Body() user: IUser): Promise<IResult<UserDTO>> {
+    try {
+      user.joinedAt = new Date();
+      const newUser = await this.userService.createUser(user);
+      if (newUser) {
+        return {
+          status: 'OK',
+          result: {
+            _id: newUser._id,
+            emailAddress: newUser.emailAddress,
+            phoneNumber: newUser.phoneNumber,
+            name: newUser.name,
+            joinedAt: newUser.joinedAt,
+          } as UserDTO,
+        } as IResult<UserDTO>;
+      }
+      throw 'An error occured';
+    } catch (error) {
+      return {
+        status: 'NOT OK',
+        error: error.message,
       } as IResult<UserDTO>;
     }
   }
