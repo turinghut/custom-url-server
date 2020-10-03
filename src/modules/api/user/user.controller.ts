@@ -1,11 +1,43 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Put, Body } from '@nestjs/common';
 import { UserService } from './user.service';
 import { IResult } from 'src/common/interfaces/response';
 import { UserDTO } from './user.dto';
+import { IUser } from 'src/models/user.model';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @Put(':id')
+  async updateUser(
+    @Param('id') userId: string,
+    @Body() user: IUser,
+  ): Promise<IResult<UserDTO>> {
+    try {
+      const updatedUser = await this.userService.update(userId, user);
+      if (updatedUser) {
+        return {
+          status: 'OK',
+          result: {
+            _id: updatedUser._id,
+            emailAddress: updatedUser.emailAddress,
+            phoneNumber: updatedUser.phoneNumber,
+            joinedAt: updatedUser.joinedAt,
+            name: updatedUser.name,
+          } as UserDTO,
+        };
+      }
+      return {
+        status: 'NOT OK',
+        error: 'An error occured',
+      } as IResult<UserDTO>;
+    } catch (error) {
+      return {
+        status: 'NOT OK',
+        error: error.message,
+      } as IResult<UserDTO>;
+    }
+  }
 
   @Get(':id')
   async getUserById(@Param('id') id: string): Promise<IResult<UserDTO>> {
